@@ -14,11 +14,11 @@ const site = {
   linkedin: "https://www.linkedin.com/in/sreedev-gireesh/",
   instagram: "https://www.instagram.com/_.sree.dev/",
   photo: {
-    src: "/assets/profile.jpg",
+    src: `${import.meta.env.BASE_URL}assets/profile.jpg`,
     alt: "Portrait of G Sreedev",
   },
 
-  resume: "/assets/resume.pdf", // e.g. "/assets/resume.pdf" — renders a Download CV button when set
+  resume: `${import.meta.env.BASE_URL}assets/resume.pdf`, // uses Vite base so it works on GitHub Pages / custom domains
 
   api: {
     // Empty string → same-origin (nginx proxy in production, Vite proxy in dev)
