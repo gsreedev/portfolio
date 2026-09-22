@@ -1,0 +1,269 @@
+/* ——— Design tokens (preserved from original template) ——— */
+
+:root {
+  --paper: #f4f4f2;
+  --ink: #111111;
+  --ink-60: rgba(17, 17, 17, 0.6);
+  --ink-40: rgba(17, 17, 17, 0.4);
+  --ink-15: rgba(17, 17, 17, 0.15);
+  --signal: #e30613;
+  --white: #ffffff;
+  --on-signal: #ffffff;
+  /* Text color for surfaces filled with --ink (flips with theme) */
+  --on-ink: #ffffff;
+
+  /* Inverse band (Experience section, footer) — always dark-on-light text */
+  --inv-bg: #111111;
+  --inv-fg: #f4f4f2;
+  --inv-fg-60: rgba(244, 244, 242, 0.6);
+  --inv-border: rgba(244, 244, 242, 0.25);
+  --inv-border-soft: rgba(244, 244, 242, 0.15);
+
+  --stripe: rgba(17, 17, 17, 0.04);
+
+  --font-display: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --grid-gap: 24px;
+  --page-pad: clamp(20px, 4vw, 64px);
+  --section-pad: clamp(72px, 12vh, 140px);
+  --rule: 1px solid var(--ink);
+  --rule-light: 1px solid var(--ink-15);
+
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
+  --dur: 180ms;
+}
+
+/* ——— Dark theme ——— */
+
+[data-theme="dark"] {
+  --paper: #111111;
+  --ink: #f2f2f0;
+  --ink-60: rgba(242, 242, 240, 0.62);
+  --ink-40: rgba(242, 242, 240, 0.42);
+  --ink-15: rgba(242, 242, 240, 0.16);
+  --white: #1b1b1b;
+  --on-ink: #111111;
+
+  --inv-bg: #000000;
+  --inv-fg: #f4f4f2;
+  --inv-fg-60: rgba(244, 244, 242, 0.6);
+  --inv-border: rgba(244, 244, 242, 0.25);
+  --inv-border-soft: rgba(244, 244, 242, 0.15);
+
+  --stripe: rgba(242, 242, 240, 0.05);
+}
+
+/* ——— Reset ——— */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition:
+    background-color 200ms var(--ease-snap),
+    color 200ms var(--ease-snap);
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--on-signal);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--page-pad);
+  z-index: 200;
+  background: var(--ink);
+  color: var(--on-ink);
+  padding: 12px 20px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+/* ——— Grid ——— */
+
+.grid {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-inline: var(--page-pad);
+}
+
+/* ——— Type primitives ——— */
+
+.label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.label-right {
+  text-align: right;
+}
+
+.accent {
+  color: var(--signal);
+}
+
+strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ——— Buttons ——— */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border: var(--rule);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background var(--dur) var(--ease-snap),
+    color var(--dur) var(--ease-snap),
+    border-color var(--dur) var(--ease-snap);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--on-ink);
+  border-color: var(--ink);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--on-signal);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.btn-sm {
+  padding: 12px 22px;
+  font-size: 12px;
+}
+
+.section-inverse .btn-ghost {
+  border-color: var(--inv-border);
+  color: var(--inv-fg);
+}
+
+.section-inverse .btn-ghost:hover:not(:disabled) {
+  background: var(--inv-fg);
+  color: var(--inv-bg);
+}
+
+/* ——— Reveal ——— */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 320ms var(--ease-snap),
+    transform 320ms var(--ease-snap);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f4f2" />
+    <script>
+      // Apply theme before first paint to avoid a flash of the wrong colors.
+      (function () {
+        var theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch (e) {}
+        if (theme !== "dark" && theme !== "light") {
+          theme =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta)
+          meta.setAttribute(
+            "content",
+            theme === "dark" ? "#111111" : "#f4f4f2"
+          );
+      })();
+    </script>
+    <title>G Sreedev</title>
+    <meta
+      name="description"
+      content="Portfolio of G Sreedev, software engineer specializing in backend development, AI/ML, and full-stack systems with Python, FastAPI, React, and Docker."
+    />
+    <meta name="author" content="G Sreedev" />
+    <meta
+      name="keywords"
+      content="G Sreedev, software engineer, backend developer, AI, machine learning, FastAPI, React, Python, portfolio"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="G Sreedev — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Software engineer building backend systems, AI/ML features, and full-stack applications."
+    />
+    <meta property="og:image" content="/assets/profile.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
