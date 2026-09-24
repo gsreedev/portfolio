@@ -7,6 +7,11 @@ COPY package.json package-lock.json* ./
 RUN npm ci || npm install
 
 COPY . .
+
+# Google Analytics ID is inlined at build time (optional)
+ARG VITE_GA_ID=""
+ENV VITE_GA_ID=$VITE_GA_ID
+
 RUN npm run build
 
 # --- Serve stage ---

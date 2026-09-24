@@ -93,7 +93,8 @@ All secrets come from environment variables — nothing is hard-coded:
 - `POSTGRES_USER` / `POSTGRES_PASSWORD` / `POSTGRES_DB` / `POSTGRES_HOST` / `POSTGRES_PORT`
 - `CORS_ORIGINS` (comma-separated)
 - `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASSWORD` / `SMTP_FROM` / `SMTP_TO` / `SMTP_USE_TLS`
-- Frontend: `VITE_API_BASE_URL` (empty in production — nginx proxies `/api`)
+- Frontend: `VITE_API_BASE_URL` (set to the public API URL when the frontend
+  and backend are deployed separately; empty only when nginx proxies `/api`)
 
 Never commit `.env` files.
 
@@ -103,6 +104,31 @@ Never commit `.env` files.
 2. **Contact links** — edit `frontend/src/config/site.js` (email, phone, GitHub, LinkedIn placeholders).
 3. **Content** — edit `frontend/src/data/content.js` for skills, projects, experience, education, certifications, publication.
 4. **Publication link** — set `publication.link` to the real DOI/publisher URL when available (left `null` on purpose; nothing is invented).
+
+## Google Analytics (visitor insights)
+
+The site integrates **GA4** through `frontend/src/services/analytics.js`.
+Nothing loads until you provide a measurement ID — no ID means zero requests.
+
+**Setup**
+
+1. Go to [analytics.google.com](https://analytics.google.com) → **Admin** → create a property → **Data stream** → choose **Web**.
+2. Copy the **Measurement ID** (looks like `G-XXXXXXXXXX`).
+3. Configure it:
+   - **Local dev:** `frontend/.env` → `VITE_GA_ID=G-XXXXXXXXXX`, then restart `npm run dev`.
+   - **Docker:** project-root `.env` → `VITE_GA_ID=G-XXXXXXXXXX`, then `docker compose up --build` (it is passed as a build arg).
+4. Verify: open the site → GA4 **Admin → DebugView** (enable Google Tag Debugger) or **Reports → Realtime** should show your visit within seconds.
+
+**What you get**
+
+- Automatic `page_view` events (GA4 then reports Users, Sessions, Views, countries, devices, referrers).
+- `outbound_click` events for external links (GitHub, LinkedIn, etc.).
+
+**Notes**
+
+- The ID is inlined at **build time** — changing it requires a rebuild/restart.
+- If you have visitors from the EU/UK, add a cookie/consent banner before enabling analytics to comply with GDPR.
+- Test with `VITE_GA_ID=G-TEST123 npm run build` and search the bundle for `G-TEST123` to confirm it is embedded.
 
 ## UX notes
 
